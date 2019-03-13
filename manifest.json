@@ -1,7 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "todo aws doc",
+  "name": "AWSDocReader",
+  "description": "Read management of AWS documents",
   "version": "1.0.0",
+  "homepage_url": "https://github.com/enomotodev/AWSDocReader",
 
   "permissions": [
     "storage"
