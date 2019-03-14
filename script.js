@@ -1,22 +1,24 @@
+var service = $('#service-name').text().trim().replace(/ /g, '.').toLowerCase();
 var contents = $('#toc a');
 
 contents.each(function (index, e) {
   var link = $(e).attr('href');
-  chrome.storage.sync.get(link, function(res) {
-    setFlag(!!res[link], link, e);
+  var key = service + "." + link;
+  chrome.storage.sync.get(key, function(res) {
+    setFlag(!!res[key], key, e);
   });
 });
 
-function setFlag(f, link, e) {
+function setFlag(f, key, e) {
   var flag = f;
-  var checkbox = $('<input type="checkbox" class="todo-done" name="' + link + '"' + (flag ? ' checked' : '') + ' />');
+  var checkbox = $('<input type="checkbox" class="todo-done" name="' + key + '"' + (flag ? ' checked' : '') + ' />');
   checkbox.on('click', function () {
     if ($(this).prop('checked')) {
       chrome.storage.sync.set({
-        [link]: true
+        [key]: true
       });
     } else {
-      chrome.storage.sync.remove(link);
+      chrome.storage.sync.remove(key);
     }
   });
   $(e).before(checkbox);
